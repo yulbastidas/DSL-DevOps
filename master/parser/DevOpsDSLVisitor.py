@@ -1,4 +1,4 @@
-# Generated from grammar/DevOpsDSL.g4 by ANTLR 4.13.2
+# Generated from DevOpsDSL.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
     from .DevOpsDSLParser import DevOpsDSLParser
@@ -36,6 +36,11 @@ class DevOpsDSLVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by DevOpsDSLParser#parallelBlock.
     def visitParallelBlock(self, ctx:DevOpsDSLParser.ParallelBlockContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by DevOpsDSLParser#statusCommand.
+    def visitStatusCommand(self, ctx:DevOpsDSLParser.StatusCommandContext):
         return self.visitChildren(ctx)
 
 

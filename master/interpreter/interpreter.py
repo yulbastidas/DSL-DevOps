@@ -26,7 +26,6 @@ class Interpreter(DevOpsDSLVisitor):
         node = ctx.ID().getText()
         script = ctx.STRING().getText().strip('"')
 
-        # VALIDACIÓN
         if not script.endswith(".sh"):
             print(f"[ERROR] Script inválido: {script}")
             return
@@ -60,7 +59,7 @@ class Interpreter(DevOpsDSLVisitor):
         self.executor.deploy(app, group)
 
     # =========================
-    # PARALELISMO
+    # PARALELO
     # =========================
     def visitParallelBlock(self, ctx):
         print("[DSL] Ejecutando en paralelo")
@@ -74,6 +73,16 @@ class Interpreter(DevOpsDSLVisitor):
 
         for t in threads:
             t.join()
+
+    # =========================
+    # STATUS (SENSORES)
+    # =========================
+    def visitStatusCommand(self, ctx):
+        node = ctx.ID().getText()
+        data = self.executor.get_sensor_data(node)
+
+        print(f"[DSL] {node}.status()")
+        print(f"[STATUS] {node} -> CPU: {data['cpu']}% | TEMP: {data['temp']}°C")
 
     # =========================
     # EJECUCIÓN SEGURA

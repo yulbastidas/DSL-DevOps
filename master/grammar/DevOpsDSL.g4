@@ -7,6 +7,7 @@ statement
     | groupCommand
     | deployCommand
     | parallelBlock
+    | statusCommand
     ;
 
 nodeCommand
@@ -23,6 +24,10 @@ deployCommand
 
 parallelBlock
     : 'parallel' '{' statement+ '}'
+    ;
+
+statusCommand
+    : ID '.' 'status' '(' ')'
     ;
 
 ID: [a-zA-Z_][a-zA-Z0-9_]*;
